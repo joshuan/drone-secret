@@ -1,12 +1,46 @@
 {
   "name": "drone-secret",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava test -v",
+    "lint": "eslint .",
+    "precommit": "npm run lint && npm test"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "drone",
+    "cli",
+    "secret"
+  ],
+  "files": [
+    "index.js",
+    "lib.js"
+  ],
+  "bin": "index.js",
+  "author": "Evgeniy Shershnev <joshuan.chel@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "config-lookuper": "^1.1.1",
+    "debug": "^3.1.0",
+    "git-url-promise": "^1.0.1",
+    "js-yaml": "^3.10.0",
+    "lodash.get": "^4.4.2",
+    "lodash.uniq": "^4.5.0",
+    "merge-options": "^1.0.0",
+    "wreck": "^14.0.2"
+  },
+  "devDependencies": {
+    "ava": "^1.0.0-beta.3",
+    "eslint": "^4.18.1",
+    "eslint-config-iddqd": "^1.2.0",
+    "husky": "^0.14.3"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "browser": false
+    },
+    "extends": "iddqd/es6"
+  }
 }
