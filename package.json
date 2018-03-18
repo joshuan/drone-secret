@@ -24,15 +24,16 @@
     "config-lookuper": "^1.1.1",
     "debug": "^3.1.0",
     "git-url-promise": "^1.0.1",
+    "got": "^8.3.0",
     "js-yaml": "^3.10.0",
     "lodash.get": "^4.4.2",
     "lodash.uniq": "^4.5.0",
     "merge-options": "^1.0.0",
-    "wreck": "^14.0.2"
+    "promise-serial": "^0.1.5"
   },
   "devDependencies": {
     "ava": "^1.0.0-beta.3",
-    "eslint": "^4.18.1",
+    "eslint": "^4.18.2",
     "eslint-config-iddqd": "^1.2.0",
     "husky": "^0.14.3"
   },
@@ -40,6 +41,9 @@
     "env": {
       "node": true,
       "browser": false
+    },
+    "parserOptions": {
+      "ecmaVersion": 8
     },
     "extends": "iddqd/es6"
   }

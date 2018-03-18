@@ -37,7 +37,9 @@ module.exports = (yamlContent, config) => {
                         name: key,
                         value: config[image.url][key],
                         image: [],
-                        event: []
+                        event: [],
+                        skip_verify: false, // eslint-disable-line camelcase
+                        conceal: false
                     }, defaults);
                 }
 

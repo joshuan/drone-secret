@@ -1,54 +1,35 @@
 #!/usr/bin/env node
 
 const debug = require('debug')('drone:secret:client');
-const Wreck = require('wreck');
+const got = require('got');
+const { URL } = require('url');
+const { name, version } = require('./package.json');
 
 class DroneSecretClient {
     constructor(config, repo) {
+        const baseUrl = new URL(config.url);
 
-        this._wreck = Wreck.defaults({
-            baseUrl: config.url,
-            headers: {
-                Authorization: `Bearer ${config.token}`
+        this._request = (method, url, data) => {
+            baseUrl.pathname = `api/repos/${repo}/${url}`;
+
+            debug('Request: %o %o', method, baseUrl.toString());
+
+            if (data) {
+                debug('Data: %o', data);
             }
-        });
 
-        this._request = (method, url, options) => {
+            return got(baseUrl.toString(), {
+                method: method || 'GET',
+                body: data,
+                json: true,
+                headers: {
+                    Authorization: `Bearer ${config.token}`,
+                    'User-Agent': `${name}/${version}`
+                }
+            }).then(res => {
+                debug('Status code: %o', res.statusCode);
 
-            return new Promise((resolve, reject) => {
-
-                const path = `api/repos/${repo}/${url}`;
-
-                debug(`${method} ${config.url}/${path}`);
-
-                this._wreck
-                    .request(method, path, options)
-                    .then(res => {
-                        debug(`Status code: ${res.statusCode}`);
-
-                        if (res.statusCode < 200 ||
-                            res.statusCode >= 300) {
-
-                            const e = new Error(`Invalid response code: ${res.statusCode}`);
-
-                            e.statusCode = res.statusCode;
-                            e.headers = res.headers;
-
-                            return reject(e);
-                        }
-
-                        this._wreck
-                            .read(res, { json: true })
-                            .then(payload => {
-                                return resolve(payload);
-                            })
-                            .catch(err => {
-                                reject(err);
-                            });
-                    })
-                    .catch(err => {
-                        reject(err);
-                    });
+                return res.body;
             });
         };
     }

@@ -4,7 +4,7 @@ const lib = require('../lib');
 ava('test', t => {
     const config = {
         '_global': {
-            'skip-verify': true,
+            'skip_verify': true,
             event: ['push']
         },
         'foo/bar': {
@@ -33,7 +33,8 @@ ava('test', t => {
         {
             name: 'S1',
             value: 'v1',
-            'skip-verify': true,
+            skip_verify: true, // eslint-disable-line camelcase
+            conceal: false,
             image: [
                 'foo/bar:*'
             ],
@@ -42,7 +43,8 @@ ava('test', t => {
         {
             name: 'S2',
             value: 'v2',
-            'skip-verify': true,
+            skip_verify: true, // eslint-disable-line camelcase
+            conceal: false,
             image: [
                 'foo/bar:*'
             ],
@@ -51,7 +53,8 @@ ava('test', t => {
         {
             name: 'S3',
             value: 'v3',
-            'skip-verify': true,
+            skip_verify: true, // eslint-disable-line camelcase
+            conceal: false,
             image: [
                 'registry.examepl.com/foo/bar'
             ],
