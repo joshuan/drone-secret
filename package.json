@@ -15,7 +15,8 @@
   ],
   "files": [
     "index.js",
-    "lib.js"
+    "lib.js",
+    "drone.js"
   ],
   "bin": "index.js",
   "author": "Evgeniy Shershnev <joshuan.chel@gmail.com>",
